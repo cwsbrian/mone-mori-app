@@ -1,8 +1,8 @@
-import { useEffect } from 'react';
+import { GluestackUIProvider } from '@gluestack-ui/themed';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
+import { useEffect } from 'react';
 import 'react-native-reanimated';
-import { GluestackUIProvider } from '@gluestack-ui/themed';
 import { config } from './_config/gluestack-ui.config';
 import { DataManager } from './_utils/dataManager';
 
