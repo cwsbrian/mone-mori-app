@@ -1,7 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
 import React from 'react';
-import { Platform } from 'react-native';
 
 export default function TabLayout() {
   return (
@@ -12,8 +11,8 @@ export default function TabLayout() {
         tabBarInactiveTintColor: '#9CA3AF',
         headerShown: true,
         tabBarStyle: {
-          height: Platform.OS === 'ios' ? 88 : 64,
-          paddingBottom: Platform.OS === 'ios' ? 28 : 8,
+          height:88,
+          paddingBottom: 28,
           paddingTop: 8,
           overflow: 'visible',
         },
@@ -39,7 +38,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="add"
         options={{
-          title: '',
+          title: 'Add',
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="add-circle" size={size} color={color} />
           ),

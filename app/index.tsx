@@ -1,12 +1,13 @@
 import { Redirect } from 'expo-router';
+import { ActivityIndicator, View } from 'react-native';
 import { useAuthStore } from './_store/useAuthStore';
-import { View, ActivityIndicator } from 'react-native';
 
 export default function Index() {
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
+  const hasHydrated = useAuthStore((state) => state._hasHydrated);
 
-  // Show loading while checking auth state
-  if (isLoggedIn === undefined) {
+  // Show loading while checking auth state (wait for hydration)
+  if (!hasHydrated) {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <ActivityIndicator size="large" />
