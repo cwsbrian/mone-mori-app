@@ -16,7 +16,7 @@ export default function Index() {
 
   // Redirect based on auth state
   if (isLoggedIn) {
-    return <Redirect href="/(tabs)" />;
+    return <Redirect href="/(tabs)/home" />;
   }
 
   return <Redirect href="/(auth)/login" />;
