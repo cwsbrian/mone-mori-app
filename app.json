@@ -47,14 +47,14 @@
     },
     "router": {
       "ignore": [
-        "app/components/**",
-        "app/config/**",
-        "app/providers/**",
-        "app/store/**",
-        "app/types/**",
-        "app/utils/**",
-        "app/data/**",
-        "app/transaction/**"
+        "app/_components/**",
+        "app/_config/**",
+        "app/_providers/**",
+        "app/_store/**",
+        "app/_types/**",
+        "app/_utils/**",
+        "app/_data/**",
+        "app/_transaction/**"
       ]
     }
   }
