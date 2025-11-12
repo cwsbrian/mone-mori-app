@@ -1,0 +1,19 @@
+[
+  {
+    "id": "user-1",
+    "email": "john@example.com",
+    "password": "password123",
+    "nickname": "John Doe",
+    "isPremium": false,
+    "createdAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "user-2",
+    "email": "jane@example.com",
+    "password": "password123",
+    "nickname": "Jane Smith",
+    "isPremium": true,
+    "createdAt": "2024-01-02T00:00:00.000Z"
+  }
+]
+

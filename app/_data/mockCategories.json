@@ -1,0 +1,147 @@
+[
+  {
+    "id": "cat-1",
+    "name": "Food & Dining",
+    "icon": "🍔",
+    "color": "#FF6B6B",
+    "type": "expense",
+    "isDefault": true,
+    "spaceId": null
+  },
+  {
+    "id": "cat-2",
+    "name": "Transportation",
+    "icon": "🚗",
+    "color": "#4ECDC4",
+    "type": "expense",
+    "isDefault": true,
+    "spaceId": null
+  },
+  {
+    "id": "cat-3",
+    "name": "Shopping",
+    "icon": "🛍️",
+    "color": "#FFE66D",
+    "type": "expense",
+    "isDefault": true,
+    "spaceId": null
+  },
+  {
+    "id": "cat-4",
+    "name": "Entertainment",
+    "icon": "🎬",
+    "color": "#A8E6CF",
+    "type": "expense",
+    "isDefault": true,
+    "spaceId": null
+  },
+  {
+    "id": "cat-5",
+    "name": "Bills & Utilities",
+    "icon": "💡",
+    "color": "#FFB6B9",
+    "type": "expense",
+    "isDefault": true,
+    "spaceId": null
+  },
+  {
+    "id": "cat-6",
+    "name": "Healthcare",
+    "icon": "🏥",
+    "color": "#BAE1FF",
+    "type": "expense",
+    "isDefault": true,
+    "spaceId": null
+  },
+  {
+    "id": "cat-7",
+    "name": "Education",
+    "icon": "📚",
+    "color": "#C7CEEA",
+    "type": "expense",
+    "isDefault": true,
+    "spaceId": null
+  },
+  {
+    "id": "cat-8",
+    "name": "Travel",
+    "icon": "✈️",
+    "color": "#FFDAC1",
+    "type": "expense",
+    "isDefault": true,
+    "spaceId": null
+  },
+  {
+    "id": "cat-9",
+    "name": "Fitness",
+    "icon": "💪",
+    "color": "#B5EAD7",
+    "type": "expense",
+    "isDefault": true,
+    "spaceId": null
+  },
+  {
+    "id": "cat-10",
+    "name": "Housing",
+    "icon": "🏠",
+    "color": "#E2F0CB",
+    "type": "expense",
+    "isDefault": true,
+    "spaceId": null
+  },
+  {
+    "id": "cat-11",
+    "name": "Gifts & Donations",
+    "icon": "🎁",
+    "color": "#FFDFD3",
+    "type": "expense",
+    "isDefault": true,
+    "spaceId": null
+  },
+  {
+    "id": "cat-12",
+    "name": "Personal Care",
+    "icon": "💅",
+    "color": "#FEC8D8",
+    "type": "expense",
+    "isDefault": true,
+    "spaceId": null
+  },
+  {
+    "id": "cat-13",
+    "name": "Salary",
+    "icon": "💼",
+    "color": "#95E1D3",
+    "type": "income",
+    "isDefault": true,
+    "spaceId": null
+  },
+  {
+    "id": "cat-14",
+    "name": "Business",
+    "icon": "📊",
+    "color": "#F38181",
+    "type": "income",
+    "isDefault": true,
+    "spaceId": null
+  },
+  {
+    "id": "cat-15",
+    "name": "Investments",
+    "icon": "📈",
+    "color": "#AA96DA",
+    "type": "income",
+    "isDefault": true,
+    "spaceId": null
+  },
+  {
+    "id": "cat-16",
+    "name": "Other Income",
+    "icon": "💵",
+    "color": "#FCBAD3",
+    "type": "income",
+    "isDefault": true,
+    "spaceId": null
+  }
+]
+
