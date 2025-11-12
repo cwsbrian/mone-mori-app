@@ -1,7 +1,7 @@
+import { Ionicons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
 import React from 'react';
-import { Ionicons } from '@expo/vector-icons';
-import { Platform, Pressable } from 'react-native';
+import { Platform } from 'react-native';
 
 export default function TabLayout() {
   return (
@@ -14,6 +14,7 @@ export default function TabLayout() {
           height: Platform.OS === 'ios' ? 88 : 64,
           paddingBottom: Platform.OS === 'ios' ? 28 : 8,
           paddingTop: 8,
+          overflow: 'visible',
         },
       }}>
       <Tabs.Screen
@@ -38,20 +39,10 @@ export default function TabLayout() {
         name="add"
         options={{
           title: '',
-          tabBarIcon: ({ color }) => (
-            <Ionicons name="add-circle" size={56} color="#4F46E5" />
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="add-circle" size={size} color={color} />
           ),
-          tabBarButton: (props) => (
-            <Pressable
-              {...props}
-              style={[
-                props.style,
-                {
-                  top: -10,
-                },
-              ]}
-            />
-          ),
+
         }}
       />
       <Tabs.Screen
