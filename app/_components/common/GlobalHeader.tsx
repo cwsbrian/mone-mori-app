@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Alert } from 'react-native';
+import { Alert, StyleSheet, View } from 'react-native';
 import { CurrentSpaceSelector } from './CurrentSpaceSelector';
 import { NotificationIcon } from './NotificationIcon';
 

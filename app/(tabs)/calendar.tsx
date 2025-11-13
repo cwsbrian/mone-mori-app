@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Calendar } from 'react-native-calendars';
 import { GlobalHeader } from '../_components/common/GlobalHeader';
 import { EmptyState } from '../_components/home/EmptyState';
-import { useSpaceStore } from '../_store/useSpaceStore';
 import { useDataStore } from '../_store/useDataStore';
-import { formatCalendarDate, formatDate } from '../_utils/dateHelpers';
-import { formatAmount } from '../_utils/currencyHelpers';
+import { useSpaceStore } from '../_store/useSpaceStore';
 import { TransactionWithDetails } from '../_types';
+import { formatAmount } from '../_utils/currencyHelpers';
+import { formatCalendarDate, formatDate } from '../_utils/dateHelpers';
 
 export default function CalendarScreen() {
   const { getCurrentSpace } = useSpaceStore();

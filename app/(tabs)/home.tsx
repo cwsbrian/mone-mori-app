@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, ScrollView, RefreshControl } from 'react-native';
 import { useRouter } from 'expo-router';
+import React, { useEffect, useState } from 'react';
+import { RefreshControl, ScrollView, StyleSheet, View } from 'react-native';
 import { GlobalHeader } from '../_components/common/GlobalHeader';
-import { SummaryCard } from '../_components/home/SummaryCard';
-import { RecentTransactionList } from '../_components/home/RecentTransactionList';
 import { EmptyState } from '../_components/home/EmptyState';
+import { RecentTransactionList } from '../_components/home/RecentTransactionList';
+import { SummaryCard } from '../_components/home/SummaryCard';
 import { useAuthStore } from '../_store/useAuthStore';
-import { useSpaceStore } from '../_store/useSpaceStore';
 import { useDataStore } from '../_store/useDataStore';
-import { getStartOfMonth, getEndOfMonth } from '../_utils/dateHelpers';
+import { useSpaceStore } from '../_store/useSpaceStore';
 import { TransactionWithDetails } from '../_types';
+import { getEndOfMonth, getStartOfMonth } from '../_utils/dateHelpers';
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -68,7 +68,10 @@ export default function HomeScreen() {
     }));
 
   const handleTransactionPress = (transactionId: string) => {
-    router.push(`/transaction/${transactionId}`);
+    router.push({
+      pathname: '/_transaction/[id]',
+      params: { id: transactionId },
+    });
   };
 
   if (!currentSpace) {
