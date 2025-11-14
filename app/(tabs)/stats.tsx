@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -7,8 +7,10 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from 'expo-router';
 import { PieChart } from 'react-native-chart-kit';
-import { GlobalHeader } from '../_components/common/GlobalHeader';
+import { AccountDrawer } from '../_components/common/AccountDrawer';
 import { EmptyState } from '../_components/home/EmptyState';
 import { useSpaceStore } from '../_store/useSpaceStore';
 import { useDataStore } from '../_store/useDataStore';
@@ -18,9 +20,23 @@ import { formatCurrency } from '../_utils/currencyHelpers';
 const { width } = Dimensions.get('window');
 
 export default function StatsScreen() {
+  const navigation = useNavigation();
   const { getCurrentSpace } = useSpaceStore();
   const { transactions, categories } = useDataStore();
+  const [isAccountDrawerOpen, setIsAccountDrawerOpen] = useState(false);
   const currentSpace = getCurrentSpace();
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity
+          onPress={() => setIsAccountDrawerOpen(true)}
+          style={{ marginRight: 16 }}>
+          <Ionicons name="ellipsis-vertical" size={24} color="#1F2937" />
+        </TouchableOpacity>
+      ),
+    });
+  }, [navigation, setIsAccountDrawerOpen]);
 
   // Period selection
   const [startDate, setStartDate] = useState(getStartOfMonth(new Date()));
@@ -82,12 +98,12 @@ export default function StatsScreen() {
   if (!currentSpace) {
     return (
       <View style={styles.container}>
-        <GlobalHeader />
         <EmptyState
           title="No Space Selected"
           message="Please select or create a space to get started"
           icon="albums-outline"
         />
+        <AccountDrawer isOpen={isAccountDrawerOpen} onClose={() => setIsAccountDrawerOpen(false)} />
       </View>
     );
   }
@@ -95,19 +111,18 @@ export default function StatsScreen() {
   if (periodTransactions.length === 0) {
     return (
       <View style={styles.container}>
-        <GlobalHeader />
         <EmptyState
           title="No Data Available"
           message="We'll show you great statistics here as data accumulates"
           icon="bar-chart-outline"
         />
+        <AccountDrawer isOpen={isAccountDrawerOpen} onClose={() => setIsAccountDrawerOpen(false)} />
       </View>
     );
   }
 
   return (
     <View style={styles.container}>
-      <GlobalHeader />
       <ScrollView style={styles.scrollView}>
         {/* Period Selector */}
         <View style={styles.periodSelector}>
@@ -188,6 +203,7 @@ export default function StatsScreen() {
 
         <View style={styles.bottomPadding} />
       </ScrollView>
+      <AccountDrawer isOpen={isAccountDrawerOpen} onClose={() => setIsAccountDrawerOpen(false)} />
     </View>
   );
 }

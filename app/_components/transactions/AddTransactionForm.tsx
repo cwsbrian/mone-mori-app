@@ -10,17 +10,20 @@ import {
   Modal,
   FlatList,
 } from 'react-native';
-import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
-import { useAuthStore } from '../_store/useAuthStore';
-import { useSpaceStore } from '../_store/useSpaceStore';
-import { useDataStore } from '../_store/useDataStore';
-import { DataManager } from '../_utils/dataManager';
-import { formatCalendarDate } from '../_utils/dateHelpers';
-import { Category } from '../_types';
+import { useAuthStore } from '../../_store/useAuthStore';
+import { useSpaceStore } from '../../_store/useSpaceStore';
+import { useDataStore } from '../../_store/useDataStore';
+import { DataManager } from '../../_utils/dataManager';
+import { formatCalendarDate } from '../../_utils/dateHelpers';
+import { Category } from '../../_types';
 
-export default function AddTransactionScreen() {
-  const router = useRouter();
+interface AddTransactionFormProps {
+  onSave?: () => void;
+  onCancel?: () => void;
+}
+
+export function AddTransactionForm({ onSave, onCancel }: AddTransactionFormProps) {
   const user = useAuthStore((state) => state.user);
   const { currentSpaceId, getCurrentSpace } = useSpaceStore();
   const { categories, addTransaction, loadCategories } = useDataStore();
@@ -84,14 +87,17 @@ export default function AddTransactionScreen() {
           setDescription('');
           setSelectedCategory(null);
           setDate(new Date());
-          router.back();
+          setType('expense');
+          setPaymentMethod('Cash');
+          setShowAdvanced(false);
+          onSave?.();
         },
       },
     ]);
   };
 
   const handleCancel = () => {
-    router.back();
+    onCancel?.();
   };
 
   return (

@@ -1,7 +1,6 @@
 import { useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { RefreshControl, ScrollView, StyleSheet, View } from 'react-native';
-import { GlobalHeader } from '../_components/common/GlobalHeader';
 import { EmptyState } from '../_components/home/EmptyState';
 import { RecentTransactionList } from '../_components/home/RecentTransactionList';
 import { SummaryCard } from '../_components/home/SummaryCard';
@@ -77,7 +76,6 @@ export default function HomeScreen() {
   if (!currentSpace) {
     return (
       <View style={styles.container}>
-        <GlobalHeader />
         <EmptyState
           title="No Space Selected"
           message="Please select or create a space to get started"
@@ -89,7 +87,6 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      <GlobalHeader />
       <ScrollView
         style={styles.scrollView}
         refreshControl={

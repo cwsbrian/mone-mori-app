@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from 'expo-router';
+import React, { useLayoutEffect, useState } from 'react';
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Calendar } from 'react-native-calendars';
-import { GlobalHeader } from '../_components/common/GlobalHeader';
+import { AccountDrawer } from '../_components/common/AccountDrawer';
+import { AddTransactionDrawer } from '../_components/common/AddTransactionDrawer';
+import { FloatingActionButton } from '../_components/common/FloatingActionButton';
 import { EmptyState } from '../_components/home/EmptyState';
 import { useDataStore } from '../_store/useDataStore';
 import { useSpaceStore } from '../_store/useSpaceStore';
@@ -9,11 +13,26 @@ import { TransactionWithDetails } from '../_types';
 import { formatAmount } from '../_utils/currencyHelpers';
 import { formatCalendarDate, formatDate } from '../_utils/dateHelpers';
 
-export default function CalendarScreen() {
+export default function TransactionsScreen() {
+  const navigation = useNavigation();
   const { getCurrentSpace } = useSpaceStore();
   const { transactions, categories } = useDataStore();
   const [selectedDate, setSelectedDate] = useState(formatCalendarDate(new Date()));
+  const [isAddDrawerOpen, setIsAddDrawerOpen] = useState(false);
+  const [isAccountDrawerOpen, setIsAccountDrawerOpen] = useState(false);
   const currentSpace = getCurrentSpace();
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity
+          onPress={() => setIsAccountDrawerOpen(true)}
+          style={{ marginRight: 16 }}>
+          <Ionicons name="ellipsis-vertical" size={24} color="#1F2937" />
+        </TouchableOpacity>
+      ),
+    });
+  }, [navigation, setIsAccountDrawerOpen]);
 
   // Create marked dates object for calendar
   const markedDates: { [key: string]: any } = {};
@@ -50,19 +69,18 @@ export default function CalendarScreen() {
   if (!currentSpace) {
     return (
       <View style={styles.container}>
-        <GlobalHeader />
         <EmptyState
           title="No Space Selected"
           message="Please select or create a space to get started"
           icon="albums-outline"
         />
+        <AccountDrawer isOpen={isAccountDrawerOpen} onClose={() => setIsAccountDrawerOpen(false)} />
       </View>
     );
   }
 
   return (
     <View style={styles.container}>
-      <GlobalHeader />
       <ScrollView style={styles.scrollView}>
         <Calendar
           current={selectedDate}
@@ -138,6 +156,15 @@ export default function CalendarScreen() {
           )}
         </View>
       </ScrollView>
+      <FloatingActionButton onPress={() => setIsAddDrawerOpen(true)} />
+      <AddTransactionDrawer
+        isOpen={isAddDrawerOpen}
+        onClose={() => setIsAddDrawerOpen(false)}
+      />
+      <AccountDrawer
+        isOpen={isAccountDrawerOpen}
+        onClose={() => setIsAccountDrawerOpen(false)}
+      />
     </View>
   );
 }
