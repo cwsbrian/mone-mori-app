@@ -1,6 +1,6 @@
-import React from 'react';
-import { TouchableOpacity, StyleSheet, Platform } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import React from 'react';
+import { Platform, StyleSheet, TouchableOpacity } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface FloatingActionButtonProps {
@@ -9,8 +9,7 @@ interface FloatingActionButtonProps {
 
 export function FloatingActionButton({ onPress }: FloatingActionButtonProps) {
   const insets = useSafeAreaInsets();
-  // Tab bar height (88) + padding bottom (28) + safe area bottom
-  const bottomOffset = insets.bottom + 116;
+  const bottomOffset = insets.bottom;
 
   return (
     <TouchableOpacity

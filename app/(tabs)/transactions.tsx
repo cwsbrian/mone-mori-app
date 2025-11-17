@@ -2,10 +2,9 @@ import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from 'expo-router';
 import React, { useLayoutEffect, useState } from 'react';
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { Calendar } from 'react-native-calendars';
 import { AccountDrawer } from '../_components/common/AccountDrawer';
-import { AddTransactionDrawer } from '../_components/common/AddTransactionDrawer';
-import { FloatingActionButton } from '../_components/common/FloatingActionButton';
+import { AddTransactionButton } from '../_components/common/AddTransactionButton';
+import { HorizontalDatePicker } from '../_components/common/HorizontalDatePicker';
 import { EmptyState } from '../_components/home/EmptyState';
 import { useDataStore } from '../_store/useDataStore';
 import { useSpaceStore } from '../_store/useSpaceStore';
@@ -18,8 +17,8 @@ export default function TransactionsScreen() {
   const { getCurrentSpace } = useSpaceStore();
   const { transactions, categories } = useDataStore();
   const [selectedDate, setSelectedDate] = useState(formatCalendarDate(new Date()));
-  const [isAddDrawerOpen, setIsAddDrawerOpen] = useState(false);
   const [isAccountDrawerOpen, setIsAccountDrawerOpen] = useState(false);
+  const [showCalendarView, setShowCalendarView] = useState(false);
   const currentSpace = getCurrentSpace();
 
   useLayoutEffect(() => {
@@ -44,7 +43,14 @@ export default function TransactionsScreen() {
     }
   });
 
-  // Highlight selected date
+  // Create marked dates for horizontal date picker (simpler format)
+  const horizontalMarkedDates: { [key: string]: { marked?: boolean } } = {};
+  transactions.forEach((tx) => {
+    const date = formatCalendarDate(new Date(tx.date));
+    horizontalMarkedDates[date] = { marked: true };
+  });
+
+  // Highlight selected date in calendar view
   if (selectedDate) {
     markedDates[selectedDate] = {
       ...markedDates[selectedDate],
@@ -82,28 +88,36 @@ export default function TransactionsScreen() {
   return (
     <View style={styles.container}>
       <ScrollView style={styles.scrollView}>
-        <Calendar
-          current={selectedDate}
-          onDayPress={(day) => setSelectedDate(day.dateString)}
-          markedDates={markedDates}
-          theme={{
-            backgroundColor: '#ffffff',
-            calendarBackground: '#ffffff',
-            textSectionTitleColor: '#6B7280',
-            selectedDayBackgroundColor: '#4F46E5',
-            selectedDayTextColor: '#ffffff',
-            todayTextColor: '#4F46E5',
-            dayTextColor: '#1F2937',
-            textDisabledColor: '#D1D5DB',
-            dotColor: '#4F46E5',
-            selectedDotColor: '#ffffff',
-            arrowColor: '#4F46E5',
-            monthTextColor: '#1F2937',
-            textMonthFontWeight: '700',
-            textDayFontSize: 16,
-            textMonthFontSize: 18,
-          }}
-        />
+        {showCalendarView ? (
+          <View style={styles.calendarContainer}>
+            <TouchableOpacity
+              style={styles.backButton}
+              onPress={() => setShowCalendarView(false)}>
+              <Ionicons name="arrow-back" size={24} color="#1F2937" />
+            </TouchableOpacity>
+
+            <HorizontalDatePicker
+              selectedDate={selectedDate}
+              onDateSelect={setSelectedDate}
+              markedDates={horizontalMarkedDates}
+            />
+          </View>
+        ) : (
+          <View style={styles.datePickerContainer}>
+            <View style={styles.datePickerWrapper}>
+              <HorizontalDatePicker
+                selectedDate={selectedDate}
+                onDateSelect={setSelectedDate}
+                markedDates={horizontalMarkedDates}
+              />
+            </View>
+            <TouchableOpacity
+              style={styles.calendarIconButton}
+              onPress={() => setShowCalendarView(true)}>
+              <Ionicons name="calendar-outline" size={24} color="#4F46E5" />
+            </TouchableOpacity>
+          </View>
+        )}
 
         <View style={styles.dailySection}>
           <View style={styles.dailyHeader}>
@@ -156,11 +170,7 @@ export default function TransactionsScreen() {
           )}
         </View>
       </ScrollView>
-      <FloatingActionButton onPress={() => setIsAddDrawerOpen(true)} />
-      <AddTransactionDrawer
-        isOpen={isAddDrawerOpen}
-        onClose={() => setIsAddDrawerOpen(false)}
-      />
+      <AddTransactionButton />
       <AccountDrawer
         isOpen={isAccountDrawerOpen}
         onClose={() => setIsAccountDrawerOpen(false)}
@@ -176,6 +186,36 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     flex: 1,
+  },
+  datePickerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#ffffff',
+    width: '100%',
+  },
+  datePickerWrapper: {
+    flex: 1,
+  },
+  calendarIconButton: {
+    padding: 16,
+    marginRight: 8,
+  },
+  calendarContainer: {
+    position: 'relative',
+  },
+  backButton: {
+    position: 'absolute',
+    top: 16,
+    left: 16,
+    zIndex: 10,
+    padding: 8,
+    backgroundColor: '#ffffff',
+    borderRadius: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
   },
   dailySection: {
     backgroundColor: '#fff',

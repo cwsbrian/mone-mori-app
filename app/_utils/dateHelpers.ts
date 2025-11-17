@@ -76,3 +76,17 @@ export const formatCalendarDate = (date: Date): string => {
   return date.toISOString().split('T')[0];
 };
 
+export const getSevenDayRange = (centerDate: Date = new Date()): Date[] => {
+  const dates: Date[] = [];
+  const today = new Date(centerDate);
+  
+  // Start 3 days before
+  for (let i = -3; i <= 3; i++) {
+    const date = new Date(today);
+    date.setDate(today.getDate() + i);
+    dates.push(date);
+  }
+  
+  return dates;
+};
+
